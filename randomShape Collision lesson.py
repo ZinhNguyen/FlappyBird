@@ -3,7 +3,7 @@ import pygame, sys, math
 from pygame.locals import *
 
 # Set Variable for Screen
-WINDOWWIDTH = 1080
+WINDOWWIDTH = 800
 WINDOWHEIGHT = 640
 
 # Set colors
