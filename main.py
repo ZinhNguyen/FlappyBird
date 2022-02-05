@@ -1,9 +1,12 @@
+# Add all library
 import pygame, sys
 from pygame.locals import *
 
+# Init pygame
 pygame.init()
 
-Displaysurf = pygame.display.set_mode((400, 300))
+# Set screen for game
+Displaysurf = pygame.display.set_mode((1080, 400))
 pygame.display.set_caption('Hello world')
 
 while True:
