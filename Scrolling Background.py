@@ -21,18 +21,21 @@ FPS = 60
 fpsClock = pygame.time.Clock()
 
 # Load Background
-BG = pygame.image.load('background.png')
-BG = pygame.transform.scale(BG, (960, 540))
+FAR_BG = pygame.image.load('far-background.png')
+FAR_BG = pygame.transform.scale(FAR_BG, (960, 540))
+
+NEAR_BG = pygame.image.load('near-background.png')
+NEAR_BG = pygame.transform.scale(NEAR_BG, (960, 540))
 
 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 pygame.display.set_caption('SCROLLING BACKGROUND')
 
 class Background():
-    def __init__(self):
+    def __init__(self, img, speed):
         self.x = 0
         self.y = 0
-        self.speed = 3
-        self.img = BG
+        self.speed = speed
+        self.img = img
         self.width = self.img.get_width()
         self.height = self.img.get_height()
     def draw(self):
@@ -43,15 +46,18 @@ class Background():
         if self.x < -self.width:
             self.x +=self.width
 def main():
-    bg = Background()
+    far_bg = Background(FAR_BG, 0.5)
+    near_bg = Background(NEAR_BG, 1)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        print(bg.x)
-        bg.draw()
-        bg.update()
+        far_bg.draw()
+        far_bg.update()
+
+        near_bg.draw()
+        near_bg.update()
         pygame.display.update()
         fpsClock.tick(FPS)
 if __name__ == '__main__':
