@@ -6,7 +6,9 @@ from pygame.locals import *
 pygame.init()
 
 # Set screen for game
-Displaysurf = pygame.display.set_mode((1080, 400))
+Displaysurf = pygame.display.set_mode((1080, 640))
+
+# Set title
 pygame.display.set_caption('Hello world')
 
 while True:
@@ -14,3 +16,11 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+    Displaysurf.fill((255, 255, 255))
+
+    surface2rec = pygame.Surface((150, 80))
+    surface2rec.fill((0, 255, 0))
+    pygame.draw.rect(surface2rec, (255, 0, 0), (20, 20, 50, 20))
+    Displaysurf.blit(surface2rec, (100, 80))
+
+    pygame.display.update()
