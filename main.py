@@ -79,7 +79,7 @@ class Columns():
         self.surface = COLUMNIMG
         self.ls = []
         for i in range(3):
-            x = i*self.distance
+            x = WINDOWWIDTH + i*self.distance
             y = random.randrange(60, WINDOWHEIGHT - self.blank - 60, 20)
             self.ls.append([x, y])
 
@@ -87,6 +87,15 @@ class Columns():
         for i in range(3):
             SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] - self.height))
             SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] + self.blank))
+
+    def update(self):
+        for i in range(3):
+            self.ls[i][0] -= self.speed
+        if self.ls[0][0] < -self.width:
+            self.ls.pop(0)
+            x = self.ls[1][0] + self.distance
+            y = random.randrange(60, WINDOWHEIGHT - self.blank - 60, 10)
+            self.ls.append([x, y])
 
 bird = Bird()
 columns = Columns()
@@ -100,6 +109,7 @@ while True:
             mouseClick = True
     SCREEN.blit(BG, (0, 0))
     columns.draw()
+    columns.update()
     bird.draw()
     bird.update(mouseClick)
     M_SCREEN_X_POS -= 3
