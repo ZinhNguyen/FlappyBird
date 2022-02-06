@@ -1,4 +1,6 @@
 # Import library
+import random
+
 import pygame, sys
 from pygame.locals import *
 
@@ -59,7 +61,35 @@ class Bird():
         if mouseClick == True:
             self.speed = SPEEDFLY
 
+# Set constants variable for Column
+COLUMNWIDTH = 60
+COLUMNHEIGHT = 500
+BLANK = 160
+DISTANCE = 200
+COLUMNSPEED = 2
+COLUMNIMG = pygame.image.load('images/column.png')
+
+class Columns():
+    def __init__(self):
+        self.width = COLUMNWIDTH
+        self.height = COLUMNHEIGHT
+        self.blank = BLANK
+        self.distance = DISTANCE
+        self.speed = COLUMNSPEED
+        self.surface = COLUMNIMG
+        self.ls = []
+        for i in range(3):
+            x = i*self.distance
+            y = random.randrange(60, WINDOWHEIGHT - self.blank - 60, 20)
+            self.ls.append([x, y])
+
+    def draw(self):
+        for i in range(3):
+            SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] - self.height))
+            SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] + self.blank))
+
 bird = Bird()
+columns = Columns()
 while True:
     mouseClick = False
     for event in pygame.event.get():
@@ -69,6 +99,7 @@ while True:
         if event.type == MOUSEBUTTONDOWN:
             mouseClick = True
     SCREEN.blit(BG, (0, 0))
+    columns.draw()
     bird.draw()
     bird.update(mouseClick)
     M_SCREEN_X_POS -= 3
