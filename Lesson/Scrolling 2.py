@@ -3,7 +3,7 @@ import pygame, sys
 from pygame.locals import *
 
 # Set Variable for Screen
-WINDOWWIDTH = 350
+WINDOWWIDTH = 800
 WINDOWHEIGHT = 540
 
 # Set colors
@@ -21,7 +21,7 @@ FPS = 60
 fpsClock = pygame.time.Clock()
 
 # Load Background
-BG = pygame.image.load('full_background.png')
+BG = pygame.image.load('C:/SAVE/VB2/Python/CuoiKy/FlappyBird/Lesson/full_background.png')
 BG = pygame.transform.scale(BG, (1000, 500))
 
 
@@ -39,6 +39,7 @@ class Background():
         DISPLAYSURF.blit(self.img, (int(self.x), int(self.y)))
     def update(self, player):
         x_camera = player.x - (WINDOWWIDTH/2 - player.width/2)
+        print(x_camera)
         if x_camera < 0:
             x_camera = 0
         if x_camera + WINDOWWIDTH > self.width:
@@ -47,10 +48,10 @@ class Background():
 class Player():
     def __init__(self):
         self.width = 200
-        self.height = 70
+        self.height = 80
         self.x = 0
         self.y = 400
-        self.surface = pygame.image.load('car.png')
+        self.surface = pygame.image.load('C:/SAVE/VB2/Python/CuoiKy/FlappyBird/Lesson/car.png')
         self.surface = pygame.transform.scale(self.surface, (self.width, self.height))
         # self.surface = pygame.Surface((self.width, self.height))
         # self.surface.fill(RED)
@@ -58,6 +59,7 @@ class Player():
 
     def draw(self, bg):
         DISPLAYSURF.blit(self.surface, (int(self.x + bg.x), int(self.y + bg.y)))
+
     def update(self, bg, left, right):
         if left == True:
             self.x -= self.speed
@@ -88,11 +90,9 @@ def main():
                 if event.key == pygame.K_RIGHT:
                     right = False
         bg.draw()
-        bg.update(player)
         player.draw(bg)
-
         player.update(bg, left, right)
-
+        bg.update(player)
 
         pygame.display.update()
         fpsClock.tick(FPS)
