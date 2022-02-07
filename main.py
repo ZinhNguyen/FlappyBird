@@ -10,8 +10,8 @@ def draw_screen():
     SCREEN.blit(M_SCREEN, (M_SCREEN_X_POS + WINDOWWIDTH, 600))
 
 # Set variable for Screen
-WINDOWWIDTH = 432
-WINDOWHEIGHT = 768
+WINDOWWIDTH = 500
+WINDOWHEIGHT = 760
 
 
 # Init pygame
@@ -57,7 +57,7 @@ def isGameOver(bird, columns):
         rectColumn2 = [columns.ls[i][0], columns.ls[i][1] + columns.blank, columns.width, columns.height]
         if rectCollision(rectBird, rectColumn1) == True or rectCollision(rectBird, rectColumn2) == True:
             return True
-    if bird.y + bird.height < 0 or bird.y + bird.height > WINDOWHEIGHT:
+    if bird.y + bird.height < 0 or bird.y + bird.height > WINDOWHEIGHT - 160:
         return True
     return False
 
@@ -83,9 +83,10 @@ class Bird():
 COLUMNWIDTH = 60
 COLUMNHEIGHT = 500
 BLANK = 160
-DISTANCE = 200
+DISTANCE = 250
 COLUMNSPEED = 2
 COLUMNIMG = pygame.image.load('images/column.png')
+COLUMNIMG = pygame.transform.scale(COLUMNIMG, (COLUMNWIDTH, COLUMNHEIGHT))
 
 class Columns():
     def __init__(self):
@@ -98,7 +99,7 @@ class Columns():
         self.ls = []
         for i in range(3):
             x = WINDOWWIDTH + i*self.distance
-            y = random.randrange(60, WINDOWHEIGHT - self.blank - 60, 20)
+            y = random.randrange(40, WINDOWHEIGHT - self.blank - 200, 20)
             self.ls.append([x, y])
 
     def draw(self):
@@ -112,7 +113,7 @@ class Columns():
         if self.ls[0][0] < -self.width:
             self.ls.pop(0)
             x = self.ls[1][0] + self.distance
-            y = random.randrange(60, WINDOWHEIGHT - self.blank - 60, 10)
+            y = random.randrange(40, WINDOWHEIGHT - self.blank - 200, 10)
             self.ls.append([x, y])
 
 
@@ -142,32 +143,110 @@ class Score():
         else:
             self.addScore = True
 
-bird = Bird()
-columns = Columns()
-score = Score()
-while True:
-    mouseClick = False
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == MOUSEBUTTONDOWN:
-            mouseClick = True
-    if isGameOver(bird, columns) == True:
-        pygame.quit()
-        sys.exit()
-    SCREEN.blit(BG, (0, 0))
-    columns.draw()
-    columns.update()
+def gameStart(bird):
+    bird.__init__()
 
-    bird.draw()
-    bird.update(mouseClick)
+    font = pygame.font.SysFont('consolas', 60)
+    headingSuface = font.render('FLAPPY BIRD', True, (255, 0, 0))
+    headingSize = headingSuface.get_size()
+    
+    font = pygame.font.SysFont('consolas', 20)
+    commentSuface = font.render('Click to start', True, (0, 0, 0))
+    commentSize = commentSuface.get_size()
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                return
 
-    score.draw()
-    score.update(bird, columns)
-    M_SCREEN_X_POS -= 3
-    if M_SCREEN_X_POS <= -WINDOWWIDTH:
-        M_SCREEN_X_POS = 0
-    draw_screen()
-    pygame.display.update()
-    fpsClock.tick(FPS)
+        SCREEN.blit(BG, (0, 0))
+        bird.draw()
+        draw_screen()
+        SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0])/2), 100))
+        SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0])/2), 500))
+
+        pygame.display.update()
+        fpsClock.tick(FPS)
+
+def gamePlay(bird, columns, score):
+    bird.__init__()
+    bird.speed = SPEEDFLY
+    columns.__init__()
+    score.__init__()
+    M_SCREEN_X_POS = 0
+    while True:
+        mouseClick = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                mouseClick = True
+
+        if isGameOver(bird, columns) == True:
+            return
+        SCREEN.blit(BG, (0, 0))
+        columns.draw()
+        columns.update()
+
+        bird.draw()
+        bird.update(mouseClick)
+
+        score.draw()
+        score.update(bird, columns)
+        M_SCREEN_X_POS -= 3
+        if M_SCREEN_X_POS <= -WINDOWWIDTH:
+            M_SCREEN_X_POS = 0
+        draw_screen()
+        pygame.display.update()
+        fpsClock.tick(FPS)
+
+
+
+def gameOver(bird, columns, score):
+    font = pygame.font.SysFont('consolas', 60)
+    headingSuface = font.render('GAMEOVER', True, (255, 0, 0))
+    headingSize = headingSuface.get_size()
+    
+    font = pygame.font.SysFont('consolas', 20)
+    commentSuface = font.render('Press "space" to replay', True, (0, 0, 0))
+    commentSize = commentSuface.get_size()
+
+    font = pygame.font.SysFont('consolas', 30)
+    scoreSuface = font.render('Score: ' + str(score.score), True, (0, 0, 0))
+    scoreSize = scoreSuface.get_size()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYUP:
+                if event.key == K_SPACE:
+                    return
+        
+        SCREEN.blit(BG, (0, 0))
+        columns.draw()
+        bird.draw()
+        SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0])/2), 100))
+        SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0])/2), 500))
+        SCREEN.blit(scoreSuface, (int((WINDOWWIDTH - scoreSize[0])/2), 160))
+        draw_screen()
+
+        pygame.display.update()
+        fpsClock.tick(FPS)
+
+def main():
+    bird = Bird()
+    columns = Columns()
+    score = Score()
+    while True:
+        gameStart(bird)
+        gamePlay(bird, columns, score)
+        gameOver(bird, columns, score)
+
+if __name__ == '__main__':
+    main()
