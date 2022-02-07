@@ -21,10 +21,10 @@ FPS = 60
 fpsClock = pygame.time.Clock()
 
 # Load Background
-FAR_BG = pygame.image.load('Lesson/far-background.png')
+FAR_BG = pygame.image.load('far-background.png')
 FAR_BG = pygame.transform.scale(FAR_BG, (960, 540))
 
-NEAR_BG = pygame.image.load('Lesson/near-background.png')
+NEAR_BG = pygame.image.load('near-background.png')
 NEAR_BG = pygame.transform.scale(NEAR_BG, (960, 540))
 
 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
