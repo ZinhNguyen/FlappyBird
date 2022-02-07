@@ -3,9 +3,10 @@ from pygame.locals import *
 from Image import screen as sc
 from Image import background as bg
 from Image import bird as b
-from  Image import column as co
+from Image import column as co
 from Function import checkGameOver as go
 from Sound import start as st
+
 
 
 BG = bg.BACKGROUND
@@ -33,7 +34,12 @@ def Start(bird, columns, score):
             if event.type == MOUSEBUTTONDOWN:
                 mouseClick = True
                 st.flap_sound.play()
+            if event.type == KEYDOWN:
+                if event.key == K_SPACE:
+                    mouseClick = True
+                    st.flap_sound.play()
         if go.isGameOver(bird, columns) == True:
+            st.die_sound.play()
             return
         SCREEN.blit(BG, (0, 0))
         columns.draw()

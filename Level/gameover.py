@@ -11,7 +11,7 @@ FPS = sc.FPS
 fpsClock = sc.fpsClock
 
 
-def Over(bird, columns, score):
+def Over(bird, columns, score, record):
     font = pygame.font.SysFont('consolas', 60)
     headingSuface = font.render('GAMEOVER', True, (255, 0, 0))
     headingSize = headingSuface.get_size()
@@ -23,6 +23,10 @@ def Over(bird, columns, score):
     font = pygame.font.SysFont('consolas', 30)
     scoreSuface = font.render('Score: ' + str(score.score), True, (0, 0, 0))
     scoreSize = scoreSuface.get_size()
+
+    font = pygame.font.SysFont('consolas', 30)
+    recordSuface = font.render('Record: ' + str(record), True, (0, 0, 0))
+    recordSize = recordSuface.get_size()
 
     while True:
         for event in pygame.event.get():
@@ -39,6 +43,7 @@ def Over(bird, columns, score):
         SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0] ) /2), 100))
         SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0] ) /2), 500))
         SCREEN.blit(scoreSuface, (int((WINDOWWIDTH - scoreSize[0] ) /2), 160))
+        SCREEN.blit(recordSuface, (int((WINDOWWIDTH - scoreSize[0]) / 2), 200))
         bg.draw_screen(0)
 
         pygame.display.update()

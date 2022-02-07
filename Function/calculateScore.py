@@ -1,6 +1,7 @@
 import pygame
 from Image import screen as sc
 from Function import checkCollision as co
+from Sound import start as st
 
 SCREEN = sc.SCREEN
 WINDOWWIDTH = sc.WINDOWWIDTH
@@ -10,7 +11,8 @@ class Score():
     def __init__(self):
         self.score = 0
         self.addScore = True
-
+    def getScore(self):
+        return self.score
     def draw(self):
         font = pygame.font.SysFont('consolas', 40)
         scoreSuface = font.render(str(self.score), True, (0, 0, 0))
@@ -28,6 +30,7 @@ class Score():
         if collision == True:
             if self.addScore == True:
                 self.score += 1
+                st.point_sound.play()
             self.addScore = False
         else:
             self.addScore = True
