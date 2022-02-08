@@ -33,7 +33,7 @@ class Bird():
         self.speed += G
         self.Angle -= G*self.speed
         if mouseClick == True:
-            self.Angle += 45
+            self.Angle += 180
             self.speed = SPEEDFLY
         if self.Angle > 45:
             self.Angle = 45
