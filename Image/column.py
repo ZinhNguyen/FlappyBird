@@ -5,6 +5,7 @@ from Image import screen as sc
 SCREEN = sc.SCREEN
 WINDOWWIDTH = sc.WINDOWWIDTH
 WINDOWHEIGHT = sc.WINDOWHEIGHT
+DELAY_PLAYING = 1000
 
 # Set constants variable for Column
 COLUMNWIDTH = 60
@@ -25,7 +26,7 @@ class Columns():
         self.surface = COLUMNIMG
         self.ls = []
         for i in range(3):
-            x = WINDOWWIDTH + i*self.distance
+            x = DELAY_PLAYING + i*self.distance
             y = random.randrange(40, WINDOWHEIGHT - self.blank - 200, 20)
             self.ls.append([x, y])
 
