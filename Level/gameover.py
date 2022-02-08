@@ -45,6 +45,9 @@ def Over(bird, columns, score, record):
         SCREEN.blit(scoreSuface, (int((WINDOWWIDTH - scoreSize[0] ) /2), 160))
         SCREEN.blit(recordSuface, (int((WINDOWWIDTH - scoreSize[0]) / 2), 200))
         bg.draw_screen(0)
-
+        bird.y +=8
+        bird.Angle = -60
+        if bird.y >= 600 - bird.height:
+            bird.y = 600 - bird.height
         pygame.display.update()
         fpsClock.tick(FPS)
