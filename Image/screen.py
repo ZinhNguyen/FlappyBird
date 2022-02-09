@@ -1,7 +1,7 @@
 import pygame
 
 # Set variable for Screen
-WINDOWWIDTH = 500
+WINDOWWIDTH = 600
 WINDOWHEIGHT = 768
 
 # Display Screen
