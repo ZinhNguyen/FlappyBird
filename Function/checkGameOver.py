@@ -13,6 +13,7 @@ def isGameOver(bird, columns):
         if co.rectCollision(rectBird, rectColumn1) == True or co.rectCollision(rectBird, rectColumn2) == True:
             st.hit_sound.play()
             return True
-    if bird.y + bird.height < 0 or bird.y + bird.height > WINDOWHEIGHT - 160:
+    #if bird.y + bird.height < 0 or bird.y + bird.height > WINDOWHEIGHT - 160:
+    if bird.y + bird.height > WINDOWHEIGHT - 160:
         return True
     return False
