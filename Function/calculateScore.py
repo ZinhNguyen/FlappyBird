@@ -14,8 +14,8 @@ class Score():
     def getScore(self):
         return self.score
     def draw(self):
-        font = pygame.font.SysFont('consolas', 40)
-        scoreSuface = font.render(str(self.score), True, (0, 0, 0))
+        font = pygame.font.Font('Sources/fonts/04B_19.ttf', 50)
+        scoreSuface = font.render(str(self.score), True, (255, 255, 255), True)
         textSize = scoreSuface.get_size()
         SCREEN.blit(scoreSuface, (int((WINDOWWIDTH - textSize[0]) / 2), 100))
 
