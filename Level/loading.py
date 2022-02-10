@@ -36,7 +36,6 @@ def Loading(bird):
         # make bird fly on loading
         bird.y, up = fl.flying(up, bird.y, 5)
         bird.draw()
-        bg.draw_screen(0)
         # SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0] ) /2), 100))
         # SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0] ) /2), 500))
         M_SCREEN_X_POS -= SCREEN_SPEED
