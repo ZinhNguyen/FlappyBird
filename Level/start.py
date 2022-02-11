@@ -6,6 +6,7 @@ from Image import bird as b
 from Image import column as co
 from Function import checkGameOver as go
 from Sound import start as st
+from Sound import gameover as so
 from Function import birdAnimation as ba
 
 
@@ -26,6 +27,7 @@ def Start(bird, columns, score):
     columns.__init__()
     score.__init__()
     M_SCREEN_X_POS = 0
+    st.background_sound.play()
     while True:
         mouseClick = False
         for event in pygame.event.get():
@@ -44,9 +46,16 @@ def Start(bird, columns, score):
                     b.BIRD_INDEX +=1
                 else:
                     b.BIRD_INDEX =0
-                b.BIRD = ba.bird_animation()
+                b.BIRD = b.BIRD_LIST[b.BIRD_INDEX]
+                b.BROWNBIRD = b.BROWNBIRD_LIST[b.BIRD_INDEX]
+                b.BLUEBIRD = b.BLUEBIRD_LIST[b.BIRD_INDEX]
+                #b.BIRD = ba.bird_animation()
         if go.isGameOver(bird, columns) == True:
-            st.die_sound.play()
+            so.die_sound.play()
+            st.background_sound.stop()
+            b.BIRD = b.BIRD_LIST[1]
+            b.BROWNBIRD = b.BROWNBIRD_LIST[1]
+            b.BLUEBIRD = b.BLUEBIRD_LIST[1]
             return
 
         SCREEN.blit(BG, (0, 0))
