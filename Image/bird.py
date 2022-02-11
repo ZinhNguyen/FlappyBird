@@ -14,19 +14,38 @@ SPEEDFLY = -9
 # Load bird
 BIRD_MID = pygame.image.load('Sources/images/yellowbird-midflap.png')
 BIRD_MID = pygame.transform.scale(BIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
-
 BIRD_DOWN = pygame.image.load('Sources/images/yellowbird-downflap.png')
 BIRD_DOWN = pygame.transform.scale(BIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
-
 BIRD_UP = pygame.image.load('Sources/images/yellowbird-upflap.png')
 BIRD_UP = pygame.transform.scale(BIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
-
 BIRD_LIST = [BIRD_DOWN, BIRD_MID, BIRD_UP]
-BIRD_INDEX = 0
+BIRD_INDEX = 1
 BIRD = BIRD_LIST[BIRD_INDEX]
+
+#Load brown bird
+BROWNBIRD_MID = pygame.image.load('Sources/images/brownbird-midflap.png')
+BROWNBIRD_MID = pygame.transform.scale(BROWNBIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
+BROWNBIRD_DOWN = pygame.image.load('Sources/images/brownbird-downflap.png')
+BROWNBIRD_DOWN = pygame.transform.scale(BROWNBIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
+BROWNBIRD_UP = pygame.image.load('Sources/images/brownbird-upflap.png')
+BROWNBIRD_UP = pygame.transform.scale(BROWNBIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
+BROWNBIRD_LIST = [BROWNBIRD_DOWN, BROWNBIRD_MID, BROWNBIRD_UP]
+BROWNBIRD = BROWNBIRD_LIST[BIRD_INDEX]
+
+#Load blue bird
+BLUEBIRD_MID = pygame.image.load('Sources/images/bluebird-midflap.png')
+BLUEBIRD_MID = pygame.transform.scale(BLUEBIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
+BLUEBIRD_DOWN = pygame.image.load('Sources/images/bluebird-downflap.png')
+BLUEBIRD_DOWN = pygame.transform.scale(BLUEBIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
+BLUEBIRD_UP = pygame.image.load('Sources/images/bluebird-upflap.png')
+BLUEBIRD_UP = pygame.transform.scale(BLUEBIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
+BLUEBIRD_LIST = [BLUEBIRD_DOWN, BLUEBIRD_MID, BLUEBIRD_UP]
+BLUEBIRD = BLUEBIRD_LIST[BIRD_INDEX]
+
 
 BIRD_FLAP = pygame.USEREVENT + 1
 pygame.time.set_timer(BIRD_FLAP, 50)
+
 
 class Bird():
     def __init__(self):
@@ -35,9 +54,12 @@ class Bird():
         self.x = (WINDOWWIDTH - self.width)/2 - 30
         self.y = (WINDOWHEIGHT - self.height)/2
         self.speed = 0
-        self.surface = BIRD
+        #self.surface = BIRD
         self.Angle = 0
-
+    def setY(self, y):
+        self.y = y
+    def getY(self):
+        return self.y
     def draw(self):
         SCREEN.blit(rb.rotate_bird(BIRD, self.Angle), (int(self.x), int(self.y)))
 
@@ -52,3 +74,17 @@ class Bird():
             self.Angle = 20
         if self.Angle < -90:
             self.Angle = -90
+
+
+class BrownBird(Bird):
+    def __init__(self):
+        Bird.__init__(self)
+    def draw(self):
+        SCREEN.blit(rb.rotate_bird(BROWNBIRD, self.Angle), (int(self.x), int(self.y)))
+
+
+class BlueBird(Bird):
+    def __init__(self):
+        Bird.__init__(self)
+    def draw(self):
+        SCREEN.blit(rb.rotate_bird(BLUEBIRD, self.Angle), (int(self.x), int(self.y)))
