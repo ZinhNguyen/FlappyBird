@@ -1,29 +1,27 @@
 import pygame, sys
 from pygame.locals import *
-from Image import screen as sc
 from Image import background as bg
 from Image import bird as b
-from Image import column as co
-from Function import checkGameOver as go
+from Utils import function as fn
 from Sound import start as st
 from Sound import gameover as so
-from Function import birdAnimation as ba
-
+from Utils import constant as const
+from Utils import variables as var
 
 
 BG = bg.BACKGROUND
-SCREEN = sc.SCREEN
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
-FPS = sc.FPS
-fpsClock = sc.fpsClock
-SPEEDFLY = b.SPEEDFLY
-SCREEN_SPEED = co.COLUMNSPEED
+SCREEN = var.SCREEN
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
+FPS = const.FPS
+fpsClock = var.fpsClock
+SPEEDFLY = const.SPEEDFLY
+SCREEN_SPEED = const.COLUMNSPEED
 
 
-def Start(bird, columns, score):
+def Start(bird, columns, score, mscreen, background):
     bird.__init__()
-    bird.speed = SPEEDFLY
+    bird.setSpeed(SPEEDFLY)
     columns.__init__()
     score.__init__()
     M_SCREEN_X_POS = 0
@@ -50,15 +48,14 @@ def Start(bird, columns, score):
                 b.BROWNBIRD = b.BROWNBIRD_LIST[b.BIRD_INDEX]
                 b.BLUEBIRD = b.BLUEBIRD_LIST[b.BIRD_INDEX]
                 #b.BIRD = ba.bird_animation()
-        if go.isGameOver(bird, columns) == True:
+        if fn.isGameOver(bird, columns) == True:
             so.die_sound.play()
             st.background_sound.stop()
             b.BIRD = b.BIRD_LIST[1]
             b.BROWNBIRD = b.BROWNBIRD_LIST[1]
             b.BLUEBIRD = b.BLUEBIRD_LIST[1]
             return
-
-        SCREEN.blit(BG, (0, 0))
+        background.draw()
         columns.draw()
         columns.update()
 
@@ -70,6 +67,6 @@ def Start(bird, columns, score):
         M_SCREEN_X_POS -= SCREEN_SPEED
         if M_SCREEN_X_POS <= -WINDOWWIDTH:
             M_SCREEN_X_POS = 0
-        bg.draw_screen(M_SCREEN_X_POS)
+        mscreen.draw(M_SCREEN_X_POS)
         pygame.display.update()
         fpsClock.tick(FPS)

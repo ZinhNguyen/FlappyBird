@@ -1,11 +1,12 @@
 import pygame
-from Image import screen as sc
-from Function import checkCollision as co
+from Utils import function as fn
+from Utils import constant as const
+from Utils import variables as var
 from Sound import start as st
 
-SCREEN = sc.SCREEN
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
+SCREEN = var.SCREEN
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
 
 class Score():
     def __init__(self):
@@ -23,8 +24,8 @@ class Score():
         collision = False
         for i in range(3):
             rectColumn = [columns.ls[i][0] + columns.width, columns.ls[i][1], 1, columns.blank]
-            rectBird = [bird.x, bird.y, bird.width, bird.height]
-            if co.rectCollision(rectBird, rectColumn) == True:
+            rectBird = [bird.getX(), bird.getY(), bird.getWidth(), bird.getHeight()]
+            if fn.rectCollision(rectBird, rectColumn) == True:
                 collision = True
                 break
         if collision == True:

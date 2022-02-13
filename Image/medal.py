@@ -1,28 +1,32 @@
 import pygame.image
+from Utils import constant as const
+from Utils import variables as var
 
-from Image import screen as sc
+SCREEN = var.SCREEN
+MEDAL_WIDTH = const.MEDAL_WIDTH
+MEDAL_HEIGHT = const.MEDAL_HEIGHT
+MEDAL_X_POS = const.MEDAL_X_POS
+MEDAL_Y_POS = const.MEDAL_Y_POS
 
-SCREEN = sc.SCREEN
-MEDAL_WIDTH = 70
-MEDAL_HEIGHT = 70
-
-MEDAL_X_POS = 190
-MEDAL_Y_POS = 280
+BRONZE_MEDAL_URL = const.BRONZE_MEDAL_URL
+SILVER_MEDAL_URL = const.SILVER_MEDAL_URL
+GOLD_MEDAL_URL = const.GOLD_MEDAL_URL
+DIAMOND_MEDAL_URL = const.DIAMOND_MEDAL_URL
 
 # Load bronze medal images
-BRONZE_MEDAL = pygame.image.load('Sources/images/bronze.png')
+BRONZE_MEDAL = pygame.image.load(BRONZE_MEDAL_URL)
 BRONZE_MEDAL = pygame.transform.scale(BRONZE_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
 
 # Load silver medal images
-SILVER_MEDAL = pygame.image.load('Sources/images/silver.png')
+SILVER_MEDAL = pygame.image.load(SILVER_MEDAL_URL)
 SILVER_MEDAL = pygame.transform.scale(SILVER_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
 
 # Load gold medal images
-GOLD_MEDAL = pygame.image.load('Sources/images/gold.png')
+GOLD_MEDAL = pygame.image.load(GOLD_MEDAL_URL)
 GOLD_MEDAL = pygame.transform.scale(GOLD_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
 
 # Load diamond medal images
-DIAMOND_MEDAL = pygame.image.load('Sources/images/diamond.png')
+DIAMOND_MEDAL = pygame.image.load(DIAMOND_MEDAL_URL)
 DIAMOND_MEDAL = pygame.transform.scale(DIAMOND_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
 
 

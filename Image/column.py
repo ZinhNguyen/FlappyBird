@@ -1,20 +1,22 @@
 import pygame
 import random
-from Image import screen as sc
+from Utils import constant as const
+from Utils import variables as var
 
-SCREEN = sc.SCREEN
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
-DELAY_PLAYING = 1000
+SCREEN = var.SCREEN
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
 
 # Set constants variable for Column
-COLUMNWIDTH = 80
-COLUMNHEIGHT = 500
-BLANK = 200
-DISTANCE = 300
-COLUMNSPEED = 3
-COLUMNIMG = pygame.image.load('Sources/images/column.png')
+COLUMNWIDTH = const.COLUMNWIDTH
+COLUMNHEIGHT = const.COLUMNHEIGHT
+BLANK = const.BLANK
+DISTANCE = const.DISTANCE
+COLUMNSPEED = const.COLUMNSPEED
+COLUMN_URL = const.COLUMN_URL
+COLUMNIMG = pygame.image.load(COLUMN_URL)
 COLUMNIMG = pygame.transform.scale(COLUMNIMG, (COLUMNWIDTH, COLUMNHEIGHT))
+DELAY_PLAYING = const.DELAY_PLAYING
 
 class Columns():
     def __init__(self):

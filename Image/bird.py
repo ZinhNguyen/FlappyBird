@@ -1,90 +1,101 @@
 import pygame
-from Image import screen as sc
-from Function import rotateBird as rb
+from Utils import function as fn
+from Utils import constant as const
+from Utils import variables as var
 
-SCREEN = sc.SCREEN
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
+SCREEN = var.SCREEN
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
 # Set constants variable for Bird
-BIRDWIDTH = 60
-BIRDHEIGHT = 40
-G = 0.5
-SPEEDFLY = -9
+BIRDWIDTH = const.BIRDWIDTH
+BIRDHEIGHT = const.BIRDHEIGHT
+G = const.G
+SPEEDFLY = const.SPEEDFLY
 
-# Load bird
-BIRD_MID = pygame.image.load('Sources/images/yellowbird-midflap.png')
-BIRD_MID = pygame.transform.scale(BIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
-BIRD_DOWN = pygame.image.load('Sources/images/yellowbird-downflap.png')
-BIRD_DOWN = pygame.transform.scale(BIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
-BIRD_UP = pygame.image.load('Sources/images/yellowbird-upflap.png')
-BIRD_UP = pygame.transform.scale(BIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
+YELLOWBIRD_MID_URL = const.YELLOWBIRD_MID_URL
+YELLOWBIRD_UP_URL = const.YELLOWBIRD_UP_URL
+YELLOWBIRD_DOWN_URL = const.YELLOWBIRD_DOWN_URL
+
+BROWNBIRD_MID_URL = const.BROWNBIRD_MID_URL
+BROWNBIRD_UP_URL = const.BROWNBIRD_UP_URL
+BROWNBIRD_DOWN_URL = const.BROWNBIRD_DOWN_URL
+
+BLUEBIRD_MID_URL = const.BLUEBIRD_MID_URL
+BLUEBIRD_UP_URL = const.BLUEBIRD_UP_URL
+BLUEBIRD_DOWN_URL = const.BLUEBIRD_DOWN_URL
+
+BIRD_INDEX = const.BIRD_INDEX
+
+# Load yellow bird
+BIRD_MID = fn.load_scale_image(YELLOWBIRD_MID_URL, BIRDWIDTH, BIRDHEIGHT)
+BIRD_DOWN = fn.load_scale_image(YELLOWBIRD_DOWN_URL, BIRDWIDTH, BIRDHEIGHT)
+BIRD_UP = fn.load_scale_image(YELLOWBIRD_UP_URL, BIRDWIDTH, BIRDHEIGHT)
 BIRD_LIST = [BIRD_DOWN, BIRD_MID, BIRD_UP]
-BIRD_INDEX = 1
 BIRD = BIRD_LIST[BIRD_INDEX]
 
 #Load brown bird
-BROWNBIRD_MID = pygame.image.load('Sources/images/brownbird-midflap.png')
-BROWNBIRD_MID = pygame.transform.scale(BROWNBIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
-BROWNBIRD_DOWN = pygame.image.load('Sources/images/brownbird-downflap.png')
-BROWNBIRD_DOWN = pygame.transform.scale(BROWNBIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
-BROWNBIRD_UP = pygame.image.load('Sources/images/brownbird-upflap.png')
-BROWNBIRD_UP = pygame.transform.scale(BROWNBIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
+BROWNBIRD_MID = fn.load_scale_image(BROWNBIRD_MID_URL, BIRDWIDTH, BIRDHEIGHT)
+BROWNBIRD_DOWN= fn.load_scale_image(BROWNBIRD_DOWN_URL, BIRDWIDTH, BIRDHEIGHT)
+BROWNBIRD_UP = fn.load_scale_image(BROWNBIRD_UP_URL, BIRDWIDTH, BIRDHEIGHT)
 BROWNBIRD_LIST = [BROWNBIRD_DOWN, BROWNBIRD_MID, BROWNBIRD_UP]
 BROWNBIRD = BROWNBIRD_LIST[BIRD_INDEX]
 
 #Load blue bird
-BLUEBIRD_MID = pygame.image.load('Sources/images/bluebird-midflap.png')
-BLUEBIRD_MID = pygame.transform.scale(BLUEBIRD_MID, (BIRDWIDTH, BIRDHEIGHT))
-BLUEBIRD_DOWN = pygame.image.load('Sources/images/bluebird-downflap.png')
-BLUEBIRD_DOWN = pygame.transform.scale(BLUEBIRD_DOWN, (BIRDWIDTH, BIRDHEIGHT))
-BLUEBIRD_UP = pygame.image.load('Sources/images/bluebird-upflap.png')
-BLUEBIRD_UP = pygame.transform.scale(BLUEBIRD_UP, (BIRDWIDTH, BIRDHEIGHT))
+BLUEBIRD_MID = fn.load_scale_image(BLUEBIRD_MID_URL, BIRDWIDTH, BIRDHEIGHT)
+BLUEBIRD_DOWN = fn.load_scale_image(BLUEBIRD_DOWN_URL, BIRDWIDTH, BIRDHEIGHT)
+BLUEBIRD_UP = fn.load_scale_image(BLUEBIRD_UP_URL, BIRDWIDTH, BIRDHEIGHT)
 BLUEBIRD_LIST = [BLUEBIRD_DOWN, BLUEBIRD_MID, BLUEBIRD_UP]
 BLUEBIRD = BLUEBIRD_LIST[BIRD_INDEX]
-
 
 BIRD_FLAP = pygame.USEREVENT + 1
 pygame.time.set_timer(BIRD_FLAP, 50)
 
-
 class Bird():
     def __init__(self):
-        self.width = BIRDWIDTH
-        self.height = BIRDHEIGHT
-        self.x = (WINDOWWIDTH - self.width)/2 - 30
-        self.y = (WINDOWHEIGHT - self.height)/2
-        self.speed = 0
+        self._width = BIRDWIDTH
+        self._height = BIRDHEIGHT
+        self._x = (WINDOWWIDTH - self._width)/2 - 30
+        self._y = (WINDOWHEIGHT - self._height)/2
+        self._speed = 0
         #self.surface = BIRD
-        self.Angle = 0
+        self._Angle = 0
+    def getWidth(self):
+        return self._width
+    def getHeight(self):
+        return self._height
+    def getX(self):
+        return self._x
     def setY(self, y):
-        self.y = y
+        self._y = y
     def getY(self):
-        return self.y
+        return self._y
+    def setSpeed(self, speed):
+        self._speed = speed
     def draw(self):
-        SCREEN.blit(rb.rotate_bird(BIRD, self.Angle), (int(self.x), int(self.y)))
+        SCREEN.blit(fn.rotate_bird(BIRD, self._Angle), (int(self._x), int(self._y)))
 
     def update(self, mouseClick):
-        self.y += self.speed + 0.5*G
-        self.speed += G
-        self.Angle -= G*self.speed
+        self._y += self._speed + 0.5*G
+        self._speed += G
+        self._Angle -= G*self._speed
         if mouseClick == True:
-            self.Angle += 180
-            self.speed = SPEEDFLY
-        if self.Angle > 20:
-            self.Angle = 20
-        if self.Angle < -90:
-            self.Angle = -90
+            self._Angle += 180
+            self.setSpeed(SPEEDFLY)
+        if self._Angle > 20:
+            self._Angle = 20
+        if self._Angle < -90:
+            self._Angle = -90
 
 
 class BrownBird(Bird):
     def __init__(self):
         Bird.__init__(self)
     def draw(self):
-        SCREEN.blit(rb.rotate_bird(BROWNBIRD, self.Angle), (int(self.x), int(self.y)))
+        SCREEN.blit(fn.rotate_bird(BROWNBIRD, self._Angle), (int(self._x), int(self._y)))
 
 
 class BlueBird(Bird):
     def __init__(self):
         Bird.__init__(self)
     def draw(self):
-        SCREEN.blit(rb.rotate_bird(BLUEBIRD, self.Angle), (int(self.x), int(self.y)))
+        SCREEN.blit(fn.rotate_bird(BLUEBIRD, self._Angle), (int(self._x), int(self._y)))

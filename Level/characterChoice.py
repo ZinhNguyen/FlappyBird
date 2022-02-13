@@ -1,38 +1,33 @@
 import pygame, sys
 from pygame.locals import *
-from Image import screen as sc
 from Image import background as bg
-from Image import column as co
 from Sound import characterChoice as st
-from Function import flyLoading as fl
-from Image import bird as b
+from Utils import constant as const
+from Utils import variables as var
 
 BG = bg.BACKGROUND
-SCREEN = sc.SCREEN
-ARROW = bg.ARROW
-LOGO = bg.LOGO
-LOGO_WIDTH = bg.LOGO_WIDTH
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
-FPS = sc.FPS
-fpsClock = sc.fpsClock
-SCREEN_SPEED = co.COLUMNSPEED
+SCREEN = var.SCREEN
+
+LOGO_WIDTH = const.LOGO_WIDTH
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
+FPS = const.FPS
+fpsClock = var.fpsClock
+SCREEN_SPEED = const.COLUMNSPEED
+DEFAULT_BIRD_POS = const.DEFAULT_BIRD_POS
+CHARACTER_SELECT_FONT_URL = const.CHARACTER_SELECT_FONT_URL
+CHARACTER_SELECT_SIZE = const.CHARACTER_SELECT_SIZE
+SYSFONT = const.SYSFONT
+SYSFONT_SIZE = const.SYSFONT_SIZE
+BLACK_COLOR = const.BLACK_COLOR
+WHITE_COLOR = const.WHITE_COLOR
 
 
-def CharacterChoice(bird1, bird2, bird3):
+def CharacterChoice(bird1, bird2, bird3, arrow, logo, mscreen, background, CharSelContent, GuideContent):
     bird1.__init__()
     bird2.__init__()
     bird3.__init__()
-    M_SCREEN_X_POS = 0
-    DEFAULT_POS = 360
-    font = pygame.font.Font('Sources/fonts/PhoenixGaming.ttf', 40)
-    headingSuface = font.render('CHARACTER SELECT', True, (255, 255, 255))
-    headingSize = headingSuface.get_size()
-
-
-    font = pygame.font.SysFont('consolas', 20)
-    commentSuface = font.render('Press "Space" to choose', True, (0, 0, 0))
-    commentSize = commentSuface.get_size()
+    DEFAULT_POS = DEFAULT_BIRD_POS
     up = True
     while True:
         for event in pygame.event.get():
@@ -57,25 +52,19 @@ def CharacterChoice(bird1, bird2, bird3):
                     st.Choice_sound.play()
                     if DEFAULT_POS > 420:
                         DEFAULT_POS = 420
-        SCREEN.blit(BG, (0, 0))
-        SCREEN.blit(ARROW, (170, 355))
-        SCREEN.blit(LOGO, ((WINDOWWIDTH-LOGO_WIDTH)/2, 100))
-        # make bird fly on loading
-        # bird1.y, up = fl.flying(up, bird1.y, 5)
-        bird1.setY(DEFAULT_POS - 60 )
+
+        background.draw()
+        arrow.draw()
+        logo.draw()
+        bird1.setY(DEFAULT_POS - 60)
         bird1.draw()
         bird2.setY(DEFAULT_POS)
         bird2.draw()
         bird3.setY(DEFAULT_POS + 60)
         bird3.draw()
-        SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0]) /2), 200))
-        SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0] ) /2), 530))
-        bg.draw_screen(0)
-        # M_SCREEN_X_POS -= SCREEN_SPEED
-        # if M_SCREEN_X_POS <= -WINDOWWIDTH:
-        #     M_SCREEN_X_POS = 0
-        bg.draw_screen(M_SCREEN_X_POS)
-
+        CharSelContent.draw()
+        GuideContent.draw()
+        mscreen.draw(0)
         pygame.display.update()
         fpsClock.tick(FPS)
 

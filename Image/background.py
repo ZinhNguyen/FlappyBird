@@ -1,27 +1,24 @@
-import pygame
-from Image import screen as sc
+from Utils import constant as const
+from Utils import variables as var
+from Utils import function as fn
 
-SCREEN = sc.SCREEN
-WINDOWWIDTH = sc.WINDOWWIDTH
-WINDOWHEIGHT = sc.WINDOWHEIGHT
+SCREEN = var.SCREEN
+WINDOWWIDTH = const.WINDOWWIDTH
+WINDOWHEIGHT = const.WINDOWHEIGHT
+BG_X_POS = const.BG_X_POS
+BG_Y_POS = const.BG_Y_POS
+BG_URL = const.BACKGROUND_URL
 
 # Load Background
-BACKGROUND = pygame.image.load('Sources/images/background1.png')
-BACKGROUND = pygame.transform.scale(BACKGROUND, (WINDOWWIDTH, WINDOWHEIGHT))
+BACKGROUND = fn.load_scale_image(BG_URL, WINDOWWIDTH, WINDOWHEIGHT)
 
-# Add moving screen for Background
-M_SCREEN = pygame.image.load('Sources/images/floor.png')
-M_SCREEN = pygame.transform.scale2x(M_SCREEN)
+class Background():
+    def __init__(self):
+        self._x = BG_X_POS
+        self._y = BG_Y_POS
+        self._width = WINDOWWIDTH
+        self._height = WINDOWHEIGHT
+        self._surface = BACKGROUND
+    def draw(self):
+        SCREEN.blit(self._surface, (self._x, self._y))
 
-# Add Arrow for Background
-ARROW = pygame.image.load('Sources/images/arrow1.png')
-ARROW = pygame.transform.scale(ARROW, (60, 50))
-
-# Add Logo for Background
-LOGO = pygame.image.load('Sources/images/logo.png')
-LOGO = pygame.transform.scale(LOGO, (350, 80))
-LOGO_WIDTH = LOGO.get_width()
-
-def draw_screen(M_SCREEN_X_POS):
-    SCREEN.blit(M_SCREEN, (M_SCREEN_X_POS, 600))
-    SCREEN.blit(M_SCREEN, (M_SCREEN_X_POS + WINDOWWIDTH + 25, 600))
