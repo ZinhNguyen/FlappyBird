@@ -2,66 +2,53 @@ import pygame.image
 from Utils import constant as const
 from Utils import variables as var
 
-SCREEN = var.SCREEN
-MEDAL_WIDTH = const.MEDAL_WIDTH
-MEDAL_HEIGHT = const.MEDAL_HEIGHT
-MEDAL_X_POS = const.MEDAL_X_POS
-MEDAL_Y_POS = const.MEDAL_Y_POS
-
-BRONZE_MEDAL_URL = const.BRONZE_MEDAL_URL
-SILVER_MEDAL_URL = const.SILVER_MEDAL_URL
-GOLD_MEDAL_URL = const.GOLD_MEDAL_URL
-DIAMOND_MEDAL_URL = const.DIAMOND_MEDAL_URL
-
-# Load bronze medal images
-BRONZE_MEDAL = pygame.image.load(BRONZE_MEDAL_URL)
-BRONZE_MEDAL = pygame.transform.scale(BRONZE_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
-
-# Load silver medal images
-SILVER_MEDAL = pygame.image.load(SILVER_MEDAL_URL)
-SILVER_MEDAL = pygame.transform.scale(SILVER_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
-
-# Load gold medal images
-GOLD_MEDAL = pygame.image.load(GOLD_MEDAL_URL)
-GOLD_MEDAL = pygame.transform.scale(GOLD_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
-
-# Load diamond medal images
-DIAMOND_MEDAL = pygame.image.load(DIAMOND_MEDAL_URL)
-DIAMOND_MEDAL = pygame.transform.scale(DIAMOND_MEDAL, (MEDAL_WIDTH, MEDAL_HEIGHT))
-
-
 class medal():
+    """This is medal class to display when finished game"""
     def __init__(self):
-        self.x = MEDAL_X_POS
-        self.y = MEDAL_Y_POS
-        self.surface = GOLD_MEDAL
+        """initial contractor for Medal class"""
+        self._x = const.MEDAL_X_POS
+        self._y = const.MEDAL_Y_POS
+        self._width = const.MEDAL_WIDTH
+        self._center = self._width/2
+        self._surface = var.GOLD_MEDAL
 
     def draw(self):
-        SCREEN.blit(self.surface, (self.x, self.y))
+        var.SCREEN.blit(self._surface, (self._x, self._y))
 
 class NoMedal(medal):
+    """This is noMedal class inherited from medal class to display circle"""
     def __init__(self):
+        """initial contractor for NoMedal class"""
         medal.__init__(self)
     def draw(self):
-        pygame.draw.circle(SCREEN, (215, 206, 137), (self.x + MEDAL_WIDTH/2, self.y + MEDAL_WIDTH/2), MEDAL_WIDTH/2)
-        pygame.draw.circle(SCREEN, (225, 216, 145), (self.x + MEDAL_WIDTH/2, self.y + MEDAL_WIDTH/2), MEDAL_WIDTH/2, 2)
+        """This function will draw 1 circle and 1 border circle into Background"""
+        pygame.draw.circle(var.SCREEN, (215, 206, 137), (self._x + self._center, self._y + self._center), self._center)
+        pygame.draw.circle(var.SCREEN, (225, 216, 145), (self._x + self._center, self._y + self._center), self._center, 2)
 
 class BronzeMedal(medal):
+    """This is BronzeMedal class inherited from medal class to display Bronze Medal"""
     def __init__(self):
+        """initial contractor BronzeMedal class"""
         medal.__init__(self)
-        self.surface = BRONZE_MEDAL
+        self._surface = var.BRONZE_MEDAL
 
 class SilverMedal(medal):
+    """This is SilverMedal class inherited from medal class to display Silver Medal"""
     def __init__(self):
+        """initial contractor SilverMedal class"""
         medal.__init__(self)
-        self.surface = SILVER_MEDAL
+        self._surface = var.SILVER_MEDAL
 
 class GoldMedal(medal):
+    """This GoldMedal class inherited from medal class to display Gold Medal"""
     def __init__(self):
+        """initial contractor GoldMedal class"""
         medal.__init__(self)
-        self.surface = GOLD_MEDAL
+        self._surface = var.GOLD_MEDAL
 
 class DiamondMedal(medal):
+    """This DiamondMedal class inherited from medal class to display Diamond Medal"""
     def __init__(self):
+        """initial contractor DiamondMedal class"""
         medal.__init__(self)
-        self.surface = DIAMOND_MEDAL
+        self._surface = var.DIAMOND_MEDAL

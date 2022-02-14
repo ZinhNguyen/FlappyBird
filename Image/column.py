@@ -1,47 +1,43 @@
-import pygame
 import random
 from Utils import constant as const
 from Utils import variables as var
-
-SCREEN = var.SCREEN
-WINDOWWIDTH = const.WINDOWWIDTH
-WINDOWHEIGHT = const.WINDOWHEIGHT
-
-# Set constants variable for Column
-COLUMNWIDTH = const.COLUMNWIDTH
-COLUMNHEIGHT = const.COLUMNHEIGHT
-BLANK = const.BLANK
-DISTANCE = const.DISTANCE
-COLUMNSPEED = const.COLUMNSPEED
-COLUMN_URL = const.COLUMN_URL
-COLUMNIMG = pygame.image.load(COLUMN_URL)
-COLUMNIMG = pygame.transform.scale(COLUMNIMG, (COLUMNWIDTH, COLUMNHEIGHT))
-DELAY_PLAYING = const.DELAY_PLAYING
+from Utils import function as fn
 
 class Columns():
+    """This is Column class"""
     def __init__(self):
-        self.width = COLUMNWIDTH
-        self.height = COLUMNHEIGHT
-        self.blank = BLANK
-        self.distance = DISTANCE
-        self.speed = COLUMNSPEED
-        self.surface = COLUMNIMG
+        """initial contractor for Column class"""
+        self._width = const.COLUMNWIDTH
+        self._height = const.COLUMNHEIGHT
+        self._blank = const.BLANK
+        self._distance = const.DISTANCE
+        self._speed = const.COLUMNSPEED
+        self._surface = fn.load_scale_image(const.COLUMN_URL, self._width, self._height)
         self.ls = []
         for i in range(3):
-            x = DELAY_PLAYING + i*self.distance
-            y = random.randrange(40, WINDOWHEIGHT - self.blank - 200, 20)
+            x = const.DELAY_PLAYING + i*self._distance
+            y = random.randrange(40, const.WINDOWHEIGHT - self._blank - 200, 20)
             self.ls.append([x, y])
-
+    def getHeight(self):
+        """This function will get the height of column"""
+        return self._height
+    def getWidth(self):
+        """This function will get the width of column"""
+        return self._width
+    def getBlank(self):
+        """This function will get the blank between upper and lower column"""
+        return self._blank
     def draw(self):
+        """This function will draw upper column and lower column"""
         for i in range(3):
-            SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] - self.height))
-            SCREEN.blit(self.surface, (self.ls[i][0], self.ls[i][1] + self.blank))
-
+            var.SCREEN.blit(self._surface, (self.ls[i][0], self.ls[i][1] - self._height))
+            var.SCREEN.blit(self._surface, (self.ls[i][0], self.ls[i][1] + self._blank))
     def update(self):
+        """This function will delete and update new column"""
         for i in range(3):
-            self.ls[i][0] -= self.speed
-        if self.ls[0][0] < -self.width:
+            self.ls[i][0] -= self._speed
+        if self.ls[0][0] < -self._width:
             self.ls.pop(0)
-            x = self.ls[1][0] + self.distance
-            y = random.randrange(40, WINDOWHEIGHT - self.blank - 200, 10)
+            x = self.ls[1][0] + self._distance
+            y = random.randrange(40, const.WINDOWHEIGHT - self._blank - 200, 10)
             self.ls.append([x, y])

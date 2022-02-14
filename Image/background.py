@@ -2,23 +2,16 @@ from Utils import constant as const
 from Utils import variables as var
 from Utils import function as fn
 
-SCREEN = var.SCREEN
-WINDOWWIDTH = const.WINDOWWIDTH
-WINDOWHEIGHT = const.WINDOWHEIGHT
-BG_X_POS = const.BG_X_POS
-BG_Y_POS = const.BG_Y_POS
-BG_URL = const.BACKGROUND_URL
-
-# Load Background
-BACKGROUND = fn.load_scale_image(BG_URL, WINDOWWIDTH, WINDOWHEIGHT)
-
 class Background():
+    """This is class for Background"""
     def __init__(self):
-        self._x = BG_X_POS
-        self._y = BG_Y_POS
-        self._width = WINDOWWIDTH
-        self._height = WINDOWHEIGHT
-        self._surface = BACKGROUND
+        """initial contractor for Background class"""
+        self._x = const.BG_X_POS
+        self._y = const.BG_Y_POS
+        self._width = const.WINDOWWIDTH
+        self._height = const.WINDOWHEIGHT
+        self._surface = fn.load_scale_image(const.BACKGROUND_URL, self._width, self._height)
     def draw(self):
-        SCREEN.blit(self._surface, (self._x, self._y))
+        """This function will display background"""
+        var.SCREEN.blit(self._surface, (self._x, self._y))
 
