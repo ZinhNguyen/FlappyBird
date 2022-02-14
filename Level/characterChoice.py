@@ -1,34 +1,34 @@
 import pygame, sys
 from pygame.locals import *
-from Image import background as bg
 from Sound import characterChoice as st
+from Image import content as ct
 from Utils import constant as const
 from Utils import variables as var
 
-BG = bg.BACKGROUND
-SCREEN = var.SCREEN
+def CharacterChoice(bird1, bird2, bird3, arrow, logo, mscreen, background):
+    """
+    This function will loading Character Selection Screen
 
-LOGO_WIDTH = const.LOGO_WIDTH
-WINDOWWIDTH = const.WINDOWWIDTH
-WINDOWHEIGHT = const.WINDOWHEIGHT
-FPS = const.FPS
-fpsClock = var.fpsClock
-SCREEN_SPEED = const.COLUMNSPEED
-DEFAULT_BIRD_POS = const.DEFAULT_BIRD_POS
-CHARACTER_SELECT_FONT_URL = const.CHARACTER_SELECT_FONT_URL
-CHARACTER_SELECT_SIZE = const.CHARACTER_SELECT_SIZE
-SYSFONT = const.SYSFONT
-SYSFONT_SIZE = const.SYSFONT_SIZE
-BLACK_COLOR = const.BLACK_COLOR
-WHITE_COLOR = const.WHITE_COLOR
+    Parameters:
+        bird1 (object): The first bird will be displayed
+        bird2 (object): The second bird will be displayed
+        bird3 (object): The third bird will be displayed
+        arrow (object): The Arrow will be displayed
+        logo (object): The logo will be displayed
+        mscreen (object): The moving screen at the bottom will be displayed
+        background (object): The background will be displayed
 
-
-def CharacterChoice(bird1, bird2, bird3, arrow, logo, mscreen, background, CharSelContent, GuideContent):
+    Returns:
+        Return 1 if DEFAULT_POS == 420:
+        Return 2 if DEFAULT_POS == 300:
+        Return default if DEFAULT_POS differ with upper
+    """
     bird1.__init__()
     bird2.__init__()
     bird3.__init__()
-    DEFAULT_POS = DEFAULT_BIRD_POS
-    up = True
+    CharSelContent = ct.Content(const.CHARACTER_SELECT_FONT_URL, const.CHARACTER_SELECT_SIZE, 'CHARACTER SELECT', const.WHITE_COLOR, 200)
+    GuideContent = ct.Content(const.GUIDEFONT_URL, const.GUIDEFONT_SIZE, 'Press "Space" to choose', const.BLACK_COLOR, 530)
+    DEFAULT_POS = const.DEFAULT_BIRD_POS
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -66,5 +66,5 @@ def CharacterChoice(bird1, bird2, bird3, arrow, logo, mscreen, background, CharS
         GuideContent.draw()
         mscreen.draw(0)
         pygame.display.update()
-        fpsClock.tick(FPS)
+        var.fpsClock.tick(const.FPS)
 

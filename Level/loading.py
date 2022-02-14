@@ -1,29 +1,30 @@
 import pygame, sys
 from pygame.locals import *
-from Image import background as bg
-from Image import column as co
-from Utils import function as fn
+from Image import content as ct
 from Sound import loading as st
 from Utils import constant as const
 from Utils import variables as var
+from Utils import function as fn
 
-BG = bg.BACKGROUND
-SCREEN = var.SCREEN
-WINDOWWIDTH = const.WINDOWWIDTH
-WINDOWHEIGHT = const.WINDOWHEIGHT
-FPS = const.FPS
-fpsClock = var.fpsClock
-SCREEN_SPEED = co.COLUMNSPEED
-BIRD_MOVING_RANGE = const.BIRD_MOVING_RANGE
 
-def Loading(bird, mscreen, background, GuideLoadingContent):
+def Loading(bird, mscreen, background):
+    """
+    This function will display Loading Screen
+
+    Parameters:
+        bird (object): The bird will be displayed in Screen
+        mscreen (object): The moving screen at the bottom will be displayed
+        background (object): The background will be displayed
+        GuideLoadingContent (object): This GuideContent will be displayed
+
+    Returns:
+        no return
+    """
     bird.__init__()
     M_SCREEN_X_POS = 0
-    font = pygame.font.SysFont('consolas', 20)
-    commentSuface = font.render('Click or use "Space" to start', True, (0, 0, 0))
-    commentSize = commentSuface.get_size()
     up = True
     st.battle_sound.play()
+    GuideLoadingContent = ct.Content(const.GUIDEFONT_URL, const.GUIDEFONT_SIZE, 'Click or use "Space" to start', const.BLACK_COLOR, 530)
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -37,19 +38,14 @@ def Loading(bird, mscreen, background, GuideLoadingContent):
                     st.battle_sound.stop()
                     return
         background.draw()
-        #SCREEN.blit(BG, (0, 0))
-        # make bird fly on loading
         bird_y = bird.getY()
-        bird_y, up = fn.flying(up, bird_y, BIRD_MOVING_RANGE)
+        bird_y, up = fn.flying(up, bird_y, const.BIRD_MOVING_RANGE)
         bird.setY(bird_y)
         bird.draw()
-        # SCREEN.blit(headingSuface, (int((WINDOWWIDTH - headingSize[0] ) /2), 100))
         GuideLoadingContent.draw()
-        # SCREEN.blit(commentSuface, (int((WINDOWWIDTH - commentSize[0])/2), 500))
-        M_SCREEN_X_POS -= SCREEN_SPEED
-        if M_SCREEN_X_POS <= -WINDOWWIDTH:
+        M_SCREEN_X_POS -= const.COLUMNSPEED
+        if M_SCREEN_X_POS <= -const.WINDOWWIDTH:
             M_SCREEN_X_POS = 0
         mscreen.draw(M_SCREEN_X_POS)
-        #bg.draw_m_screen(M_SCREEN_X_POS)
         pygame.display.update()
-        fpsClock.tick(FPS)
+        var.fpsClock.tick(const.FPS)
