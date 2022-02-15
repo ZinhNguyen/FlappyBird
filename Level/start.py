@@ -26,6 +26,8 @@ def Start(bird, columns, score, mscreen, background):
     score.__init__()
     M_SCREEN_X_POS = 0
     st.background_sound.play()
+    state = True
+    flag = const.BG_CHANGE_NUM
     while True:
         mouseClick = False
         for event in pygame.event.get():
@@ -45,15 +47,24 @@ def Start(bird, columns, score, mscreen, background):
                 else:
                     var.BIRD_INDEX =0
                 var.BIRD = var.BIRD_LIST[var.BIRD_INDEX]
-                var.BROWNBIRD = var.BROWNBIRD_LIST[var.BIRD_INDEX]
+                var.REDBIRD = var.REDBIRD_LIST[var.BIRD_INDEX]
                 var.BLUEBIRD = var.BLUEBIRD_LIST[var.BIRD_INDEX]
         if fn.isGameOver(bird, columns) == True:
             so.die_sound.play()
             st.background_sound.stop()
             var.BIRD = var.BIRD_LIST[1]
-            var.BROWNBIRD = var.BROWNBIRD_LIST[1]
+            var.REDBIRD = var.REDBIRD_LIST[1]
             var.BLUEBIRD = var.BLUEBIRD_LIST[1]
             return
+        if score.getScore() == flag:
+            state = not state
+            flag = score.getScore() + const.BG_CHANGE_NUM
+        if state == True:
+            background.setSurface(const.BACKGROUND_URL)
+            columns.setSurface(const.COLUMN_URL)
+        else:
+            background.setSurface(const.BACKGROUND1_URL)
+            columns.setSurface(const.COLUMN1_URL)
         background.draw()
         columns.draw()
         columns.update()
