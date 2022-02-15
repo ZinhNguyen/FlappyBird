@@ -4,6 +4,7 @@ WINDOWHEIGHT = 768
 WHD_2 = (WINDOWHEIGHT - 168) / 2
 BG_X_POS = 0
 BG_Y_POS = 0
+BG_CHANGE_NUM = 3
 
 # Set FPS for game
 FPS = 60
@@ -81,17 +82,19 @@ WHITE_COLOR = (255, 255, 255)
 
 # Path for Images
 BACKGROUND_URL = 'Sources/images/background1.png'
+BACKGROUND1_URL = 'Sources/images/background2.png'
 MOVING_BG_URL = 'Sources/images/floor.png'
 YELLOWBIRD_MID_URL = 'Sources/images/yellowbird-midflap.png'
 YELLOWBIRD_UP_URL = 'Sources/images/yellowbird-upflap.png'
 YELLOWBIRD_DOWN_URL = 'Sources/images/yellowbird-downflap.png'
-BROWNBIRD_MID_URL = 'Sources/images/brownbird-midflap.png'
-BROWNBIRD_UP_URL = 'Sources/images/brownbird-upflap.png'
-BROWNBIRD_DOWN_URL = 'Sources/images/brownbird-downflap.png'
+REDBIRD_MID_URL = 'Sources/images/redbird-midflap.png'
+REDBIRD_UP_URL = 'Sources/images/redbird-upflap.png'
+REDBIRD_DOWN_URL = 'Sources/images/redbird-downflap.png'
 BLUEBIRD_MID_URL = 'Sources/images/bluebird-midflap.png'
 BLUEBIRD_UP_URL = 'Sources/images/bluebird-upflap.png'
 BLUEBIRD_DOWN_URL = 'Sources/images/bluebird-downflap.png'
-COLUMN_URL = 'Sources/images/column.png'
+COLUMN_URL = 'Sources/images/column1.png'
+COLUMN1_URL = 'Sources/images/column2.png'
 ARROW_URL = 'Sources/images/arrow1.png'
 LOGO_URL = 'Sources/images/logo.png'
 GAMEOVER_LOGO_URL = 'Sources/images/gameover.png'
