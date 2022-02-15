@@ -51,14 +51,14 @@ class Bird():
         if self._Angle < -90:
             self._Angle = -90
 
-class BrownBird(Bird):
+class RedBird(Bird):
     """This is Brown Bird Class inherited from Bird"""
     def __init__(self):
         """initial contractor for BrownBird class"""
         Bird.__init__(self)
     def draw(self):
         """This function will draw Brownbird with angle"""
-        var.SCREEN.blit(fn.rotate_bird(var.BROWNBIRD, self._Angle), (int(self._x), int(self._y)))
+        var.SCREEN.blit(fn.rotate_bird(var.REDBIRD, self._Angle), (int(self._x), int(self._y)))
 
 
 class BlueBird(Bird):

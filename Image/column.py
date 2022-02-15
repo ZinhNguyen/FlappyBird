@@ -18,6 +18,9 @@ class Columns():
             x = const.DELAY_PLAYING + i*self._distance
             y = random.randrange(40, const.WINDOWHEIGHT - self._blank - 200, 20)
             self.ls.append([x, y])
+    def setSurface(self, newColumn_URL):
+        """This function will new background of column"""
+        self._surface = fn.load_scale_image(newColumn_URL, self._width, self._height)
     def getHeight(self):
         """This function will get the height of column"""
         return self._height
