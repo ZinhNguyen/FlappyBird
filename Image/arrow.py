@@ -2,24 +2,16 @@ from Utils import constant as const
 from Utils import variables as var
 from Utils import function as fn
 
-ARROW_X_POS = const.ARROW_X_POS
-ARROW_Y_POS = const.ARROW_Y_POS
-
-SCREEN = var.SCREEN
-ARROW_URL = const.ARROW_URL
-ARROW_WIDTH = const.ARROW_WIDTH
-ARROW_HEIGHT = const.ARROW_HEIGHT
-
-# Add Arrow for Background
-ARROW = fn.load_scale_image(ARROW_URL, ARROW_WIDTH, ARROW_HEIGHT)
-
 class Arrow():
+    """This is class for Arrow"""
     def __init__(self):
-        self._x = ARROW_X_POS
-        self._y = ARROW_Y_POS
-        self._width = ARROW_WIDTH
-        self._height = ARROW_HEIGHT
-        self._surface = ARROW
+        """initial contractor for Arrow class"""
+        self._x = const.ARROW_X_POS
+        self._y = const.ARROW_Y_POS
+        self._width = const.ARROW_WIDTH
+        self._height = const.ARROW_HEIGHT
+        self._surface = fn.load_scale_image(const.ARROW_URL, self._width, self._height)
 
     def draw(self):
-        SCREEN.blit(self._surface, (self._x, self._y))
+        """This function will display arrow"""
+        var.SCREEN.blit(self._surface, (self._x, self._y))
